@@ -11,6 +11,11 @@ const dbName = 'courses';
 app.use(cors());
 app.use(express.json());
 
+app.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
+});
+
+function sortData (){
 MongoClient.connect(uri)
     .then((client) => {
         const db = client.db(dbName);
@@ -55,12 +60,8 @@ MongoClient.connect(uri)
             }}
         ]).toArray()
             .then((result) => {
-                app.get("/", (req, res) => {
+                app.get("/api/courses", (req, res) => {
                     res.json(result);
-                });
-
-                app.listen(port, () => {
-                    console.log(`Server is listening on port ${port}`);
                 });
             })
             .catch((err) => {
@@ -70,3 +71,71 @@ MongoClient.connect(uri)
     .catch((err) => {
         console.error('Error occurred while connecting to the database:', err);
     });
+}
+sortData()
+
+function unsortedData (){
+    MongoClient.connect(uri)
+        .then((client) => {
+            const db = client.db(dbName);
+            const collection = db.collection('courses');
+
+            // Define your projection object
+            const myProjection = {
+                "_id": 0, // Exclude the _id field
+                "1st Year.description": 1,
+                "1st Year.tags": 1,
+                "2nd Year.description": 1,
+                "2nd Year.tags": 1,
+                "3rd Year.description": 1,
+                "3rd Year.tags": 1,
+                "4th Year.description": 1,
+                "4th Year.tags": 1
+            };
+
+            collection.find({}).project(myProjection).toArray()
+                .then((result) => {
+                    app.get("/api/specializations", (req, res) => {
+                        res.json(result);
+                    });
+                })
+                .catch((err) => {
+                    console.error('Error occurred while fetching and sorting data:', err);
+                });
+        })
+        .catch((err) => {
+            console.error('Error occurred while connecting to the database:', err);
+        });
+}
+unsortedData();
+
+function unsortedDataTwo (){
+    MongoClient.connect(uri)
+        .then((client) => {
+            const db = client.db(dbName);
+            const collection = db.collection('courses');
+
+            // Define your projection object
+            const myProjection = {
+                "_id": 0, // Exclude the _id field
+                "1st Year.description": 1,
+                "2nd Year.description": 1,
+                "3rd Year.description": 1,
+                "4th Year.description": 1,
+            };
+
+            collection.find({}).project(myProjection).toArray()
+                .then((result) => {
+                    app.get("/api/curriculums", (req, res) => {
+                        res.json(result);
+                    });
+                })
+                .catch((err) => {
+                    console.error('Error occurred while fetching and sorting data:', err);
+                });
+        })
+        .catch((err) => {
+            console.error('Error occurred while connecting to the database:', err);
+        });
+}
+unsortedDataTwo();
