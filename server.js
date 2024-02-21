@@ -1,6 +1,6 @@
-const { MongoClient } = require('mongodb');
-const express = require('express');
-const cors = require('cors');
+import { MongoClient } from 'mongodb';
+import express from 'express';
+import cors from 'cors';
 
 const app = express();
 
@@ -114,9 +114,8 @@ function getCurriculums (){
             const db = client.db(dbName);
             const collection = db.collection('courses');
 
-            // Define your projection object
             const myProjection = {
-                "_id": 0, // Exclude the _id field
+                "_id": 0,
                 "1st Year.description": 1,
                 "2nd Year.description": 1,
                 "3rd Year.description": 1,

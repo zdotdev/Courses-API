@@ -8,6 +8,7 @@
     "devStart": "nodemon server.js",
     "start": "node server.js"
   },
+  "type": "module",
   "name": "activity",
   "version": "1.0.0",
   "main": "server.js",
