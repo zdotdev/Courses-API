@@ -74,15 +74,14 @@ MongoClient.connect(uri)
 }
 sortData()
 
-function unsortedData (){
+function getSpecializations (){
     MongoClient.connect(uri)
         .then((client) => {
             const db = client.db(dbName);
             const collection = db.collection('courses');
 
-            // Define your projection object
             const myProjection = {
-                "_id": 0, // Exclude the _id field
+                "_id": 0, 
                 "1st Year.description": 1,
                 "1st Year.tags": 1,
                 "2nd Year.description": 1,
@@ -107,9 +106,9 @@ function unsortedData (){
             console.error('Error occurred while connecting to the database:', err);
         });
 }
-unsortedData();
+getSpecializations();
 
-function unsortedDataTwo (){
+function getCurriculums (){
     MongoClient.connect(uri)
         .then((client) => {
             const db = client.db(dbName);
@@ -138,4 +137,4 @@ function unsortedDataTwo (){
             console.error('Error occurred while connecting to the database:', err);
         });
 }
-unsortedDataTwo();
+getCurriculums();
