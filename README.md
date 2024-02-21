@@ -13,7 +13,7 @@ Before you begin, ensure you have met the following requirements:
 
 ## Installation
 
-To install the Recipe Sharing API, follow these steps:
+To install the Course API, follow these steps:
 
 1. Clone the repository to your local machine. `git clone https://github.com/zdotdev/Courses.git`
 2. Run `npm install` to install all the necessary dependencies.
